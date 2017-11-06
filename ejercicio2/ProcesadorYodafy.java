@@ -44,7 +44,6 @@ public class ProcesadorYodafy {
 		//int bytesRecibidos=0;
 
 		// Array de bytes para enviar la respuesta. Podemos reservar memoria cuando vayamos a enviarka:
-		byte [] datosEnviar;
 		String datosEnviar;
 
 

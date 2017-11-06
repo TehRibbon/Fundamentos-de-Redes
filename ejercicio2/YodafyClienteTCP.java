@@ -19,7 +19,7 @@ public class YodafyClienteTCP {
 		String buferEnvio;
 		String buferRecepcion;
 		//byte []buferRecepcion=new byte[256];
-		int bytesLeidos=0;
+		//int bytesLeidos=0;
 
 		// Nombre del host donde se ejecuta el servidor:
 		String host="localhost";
@@ -45,7 +45,7 @@ public class YodafyClienteTCP {
 
 			// Enviamos el array por el outputStream;
 			//////////////////////////////////////////////////////
-			PrintWriter outprinter = new PrintWriter(socketServicio.getOutputStream(),true);
+			PrintWriter outprinter = new PrintWriter(outputStream,true);
 
 			outprinter.println(buferEnvio);
 			//outputStream.write(buferEnvio,0,buferEnvio.length);
@@ -64,7 +64,7 @@ public class YodafyClienteTCP {
 			// Leemos la respuesta del servidor. Para ello le pasamos un array de bytes, que intentará
 			// rellenar. El método "read(...)" devolverá el número de bytes leídos.
 			//////////////////////////////////////////////////////
-			BufferedReader inReader = new BufferedReader(new InputStreamReader(socketServicio.getInputStream()));
+			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 			buferRecepcion = inReader.readLine();
 			//bytesLeidos = inputStream.read(buferRecepcion);
 			// bytesLeidos ... .read... buferRecepcion ; (Completar)

@@ -45,6 +45,7 @@ public class ProcesadorYodafy {
 
 		// Array de bytes para enviar la respuesta. Podemos reservar memoria cuando vayamos a enviarka:
 		byte [] datosEnviar;
+		String datosEnviar;
 
 
 		try {
@@ -54,7 +55,7 @@ public class ProcesadorYodafy {
 
 			// Lee la frase a Yodaficar:
 			////////////////////////////////////////////////////////
-			BufferedReader inReader = new BufferedReader(new InputStreamReader(socketServicio.getInputStream()));
+			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 			datosRecibidos = inReader.readLine();
 			//inputStream.read(datosRecibidos);
 			// read ... datosRecibidos.. (Completar)
@@ -62,15 +63,16 @@ public class ProcesadorYodafy {
 
 			// Yoda hace su magia:
 			// Creamos un String a partir de un array de bytes de tamaño "bytesRecibidos":
-			String peticion=new String(datosRecibidos,0,datosRecibidos.length;
+			//String peticion=new String(datosRecibidos,0,datosRecibidos.length;
 			// Yoda reinterpreta el mensaje:
-			String respuesta=yodaDo(peticion);
+			String respuesta=yodaDo(datosRecibidos);
 			// Convertimos el String de respuesta en una array de bytes:
-			datosEnviar=respuesta.getBytes();
+			//datosEnviar=respuesta.getBytes();
 
 			// Enviamos la traducción de Yoda:
 			////////////////////////////////////////////////////////
-			outputStream.write(datosEnviar,0,datosEnviar.length);
+			PrintWriter outPrinter = new PrintWriter(outputStream, true);
+                        outPrinter.println(respuesta);
 			// ... write ... datosEnviar... datosEnviar.length ... (Completar)
 			////////////////////////////////////////////////////////
 

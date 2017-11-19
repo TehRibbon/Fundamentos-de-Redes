@@ -1,23 +1,20 @@
+//Servicio online de citas
+//(CC) Mario Lopez, Antonio Rodriguez, 2017)
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-//
-// YodafyServidorIterativo
-// (CC) jjramos, 2012
-//
+
 public class CitasServidorIterativo {
 
 	public static void main(String[] args) {
 
 		// Puerto de escucha
 		int port=8989;
-		// array de bytes auxiliar para recibir o enviar datos.
-		//byte []buffer=new byte[256];
-		// Número de bytes leídos
-		//int bytesLeidos=0;
 
 		//Creo ServerSocket modo pasivo
 		ServerSocket socketServidor;
@@ -25,8 +22,7 @@ public class CitasServidorIterativo {
 
 		try {
 			// Abrimos el socket en modo pasivo, escuchando el en puerto indicado por "port"
-			//////////////////////////////////////////////////
-				socketServidor = new ServerSocket(port);
+			socketServidor = new ServerSocket(port);
 
 			do {
 
@@ -36,7 +32,7 @@ public class CitasServidorIterativo {
 				// socketServicio=... (completar)
 				//////////////////////////////////////////////////
 
-				// Creamos un objeto de la clase ProcesadorYodafy, pasándole como
+				// Creamos un objeto de la clase Procesador, pasándole como
 				// argumento el nuevo socket, para que realice el procesamiento
 				// Este esquema permite que se puedan usar hebras más fácilmente.
 				Procesador procesador=new Procesador(socketServicio);

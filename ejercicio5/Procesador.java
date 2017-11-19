@@ -1,3 +1,5 @@
+//Servicio online de citas
+//(CC) Mario Lopez, Antonio Rodriguez, 2017)
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +12,6 @@ import java.net.UnknownHostException;
 import java.io.PrintWriter;
 
 
-//
-// Nota: si esta clase extendiera la clase Thread, y el procesamiento lo hiciera el método "run()",
-// ¡Podríamos realizar un procesado concurrente!
-//
 public class Procesador {
 	// Referencia a un socket para enviar/recibir las peticiones/respuestas
 	private Socket socketServicio;
@@ -35,10 +33,8 @@ public class Procesador {
 	// Aquí es donde se realiza el procesamiento realmente:
 	void procesa(){
 
-		// Como máximo leeremos un bloque de 1024 bytes. Esto se puede modificar.
-		//byte [] datosRecibidos=new byte[1024];
 		String datosRecibidos;
-		//int bytesRecibidos=0;
+
 
 		// Array de bytes para enviar la respuesta. Podemos reservar memoria cuando vayamos a enviarka:
 		String datosEnviar;
@@ -57,11 +53,12 @@ public class Procesador {
 			inputStream=socketServicio.getInputStream();
 			outputStream=socketServicio.getOutputStream();
 
-			// Lee la frase a Yodaficar:
-			////////////////////////////////////////////////////////
+
+
 			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 			PrintWriter outPrinter = new PrintWriter(outputStream, true);
 
+			//Lectura de login
 			while(!autenticado){
 				datosRecibidos = inReader.readLine();
 

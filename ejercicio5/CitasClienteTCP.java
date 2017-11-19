@@ -1,4 +1,5 @@
-
+//Servicio online de citas
+//(CC) Mario Lopez, Antonio Rodriguez, 2017)
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,12 +14,10 @@ public class CitasClienteTCP {
 
 	public static void main(String[] args) {
 
-		//byte []buferEnvio;
 		String buferEnvio;
 		String buferRecepcion;
 		String error = "ERROR/";
-		//byte []buferRecepcion=new byte[256];
-		//int bytesLeidos=0;
+
 
 		// Nombre del host donde se ejecuta el servidor:
 		String host="localhost";
@@ -30,24 +29,22 @@ public class CitasClienteTCP {
 
 		try {
 			// Creamos un socket que se conecte a "host" y "port":
-			//////////////////////////////////////////////////////
 			socketServicio = new Socket(host, port);
-			// socketServicio= ... (Completar)
-			//////////////////////////////////////////////////////
 
 			InputStream inputStream = socketServicio.getInputStream();
 			OutputStream outputStream = socketServicio.getOutputStream();
 
-			// Si queremos enviar una cadena de caracteres por un OutputStream, hay que pasarla primero
-			// a un array de bytes:
-			//Autenticacion
+			//Mensaje de bienvenida
 			System.out.println("************Bienvenido al sistema de citas online************ \n\nLos datos necesarios se irán pidiendo por pantalla.");
 			System.out.println("Para salir en cualquier momento pulse la tecla 'Q'");
+
+			//Autenticacion
 			System.out.println("\nLOGIN: (usuario-contraseña) (por defecto fr-finisterre)");
 
 			PrintWriter outprinter = new PrintWriter(outputStream,true);
 			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 
+			//Solicito el login por pantalla
 			Scanner terminalInput = new Scanner(System.in);
 			buferEnvio = terminalInput.nextLine();
 
@@ -61,6 +58,7 @@ public class CitasClienteTCP {
 			// Leemos la respuesta del servidor. Para ello le pasamos un array de bytes, que intentará
 			buferRecepcion = inReader.readLine();
 
+			//Se solicita la entrada hasta que sea correcta o se haga logout con "q"
 			while(buferRecepcion.toLowerCase().contains(error.toLowerCase()) ){
 				if(buferEnvio.toLowerCase().equals("q"))
 					System.exit(0);
@@ -93,6 +91,7 @@ public class CitasClienteTCP {
 
 			buferRecepcion = inReader.readLine();
 
+			//Se solicita la entrada hasta que sea correcta o se haga logout
 			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
 				if(buferEnvio.toLowerCase().equals("q"))
 					System.exit(0);
@@ -119,6 +118,8 @@ public class CitasClienteTCP {
 
 			buferRecepcion = inReader.readLine();
 
+
+						//Se solicita la entrada hasta que sea correcta o se haga logout
 			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
 				if(buferEnvio.toLowerCase().equals("q"))
 					System.exit(0);
@@ -144,6 +145,8 @@ public class CitasClienteTCP {
 
 			buferRecepcion = inReader.readLine();
 
+
+		  //Se solicita la entrada hasta que sea correcta o se haga logout
 			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
 				if(buferEnvio.toLowerCase().equals("q"))
 					System.exit(0);
@@ -170,11 +173,7 @@ public class CitasClienteTCP {
 
 
 			// Una vez terminado el servicio, cerramos el socket (automáticamente se cierran
-			// el inpuStream  y el outputStream)
-			//////////////////////////////////////////////////////
 			socketServicio.close();
-			// ... close(); (Completar)
-			//////////////////////////////////////////////////////
 
 			// Excepciones:
 		} catch (UnknownHostException e) {

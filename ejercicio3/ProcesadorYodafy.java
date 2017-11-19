@@ -33,10 +33,10 @@ public class ProcesadorYodafy extends Thread {
 		this.socketServicio=socketServicio;
 		random=new Random();
 	}
-        
-        
-        // El contenido de este método se ejecutará tras llamar al
-        // método "start()". Se trata del procesamiento de la hebra.
+
+
+        // El contenido de este metodo se ejecutara tras llamar al
+        // metodo "start()". Se trata del procesamiento de la hebra.
         public void run() {
             procesa();
         }

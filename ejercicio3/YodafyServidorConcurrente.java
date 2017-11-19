@@ -33,7 +33,7 @@ public class YodafyServidorConcurrente {
 			// Mientras ... siempre!
 			do {
 
-				// Aceptamos una nueva conexión con accept()
+				// Aceptamos una nueva conexion con accept()
 				/////////////////////////////////////////////////
 				socketServicio = socketServidor.accept();
 				// socketServicio=... (completar)
@@ -43,7 +43,7 @@ public class YodafyServidorConcurrente {
 				// argumento el nuevo socket, para que realice el procesamiento
 				// Este esquema permite que se puedan usar hebras más fácilmente.
 				ProcesadorYodafy procesador=new ProcesadorYodafy(socketServicio);
-				procesador.hebras();
+				procesador.procesa();
 
 			} while (true);
 

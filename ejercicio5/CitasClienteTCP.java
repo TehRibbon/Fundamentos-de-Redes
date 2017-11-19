@@ -43,7 +43,7 @@ public class CitasClienteTCP {
 			//Autenticacion
 			System.out.println("************Bienvenido al sistema de citas online************ \n\nLos datos necesarios se irán pidiendo por pantalla.");
 			System.out.println("Para salir en cualquier momento pulse la tecla 'Q'");
-			System.out.println("\nLOGIN: (usuario-contraseña)");
+			System.out.println("\nLOGIN: (usuario-contraseña) (por defecto fr-finisterre)");
 
 			PrintWriter outprinter = new PrintWriter(outputStream,true);
 			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));

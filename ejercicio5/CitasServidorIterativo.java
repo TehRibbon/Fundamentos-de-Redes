@@ -27,10 +27,7 @@ public class CitasServidorIterativo {
 			// Abrimos el socket en modo pasivo, escuchando el en puerto indicado por "port"
 			//////////////////////////////////////////////////
 				socketServidor = new ServerSocket(port);
-			// ...serverSocket=... (completar)
-			//////////////////////////////////////////////////
 
-			// Mientras ... siempre!
 			do {
 
 				// Aceptamos una nueva conexión con accept()

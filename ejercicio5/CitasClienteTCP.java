@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class CitasClienteTCP {
 
@@ -15,6 +16,7 @@ public class CitasClienteTCP {
 		//byte []buferEnvio;
 		String buferEnvio;
 		String buferRecepcion;
+		String error = "ERROR/";
 		//byte []buferRecepcion=new byte[256];
 		//int bytesLeidos=0;
 
@@ -39,91 +41,132 @@ public class CitasClienteTCP {
 			// Si queremos enviar una cadena de caracteres por un OutputStream, hay que pasarla primero
 			// a un array de bytes:
 			//Autenticacion
-			buferEnvio="usuario-1234";
+			System.out.println("************Bienvenido al sistema de citas online************ \n\nLos datos necesarios se irán pidiendo por pantalla.");
+			System.out.println("Para salir en cualquier momento pulse la tecla 'Q'");
+			System.out.println("\nLOGIN: (usuario-contraseña)");
+
+			PrintWriter outprinter = new PrintWriter(outputStream,true);
+			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
+
+			Scanner terminalInput = new Scanner(System.in);
+			buferEnvio = terminalInput.nextLine();
+
 
 			// Enviamos el array por el outputStream;
-			//////////////////////////////////////////////////////
-			PrintWriter outprinter = new PrintWriter(outputStream,true);
-
 			outprinter.println(buferEnvio);
-			//outputStream.write(buferEnvio,0,buferEnvio.length);
-
-			// ... .write ... (Completar)
-			//////////////////////////////////////////////////////
-
-			// Aunque le indiquemos a TCP que queremos enviar varios arrays de bytes, sólo
-			// los enviará efectivamente cuando considere que tiene suficientes datos que enviar...
-			// Podemos usar "flush()" para obligar a TCP a que no espere para hacer el envío:
-			//////////////////////////////////////////////////////
 			outprinter.flush();
-			// ... .flush(); (Completar)
+
 			//////////////////////////////////////////////////////
 
 			// Leemos la respuesta del servidor. Para ello le pasamos un array de bytes, que intentará
-			// rellenar. El método "read(...)" devolverá el número de bytes leídos.
-			//////////////////////////////////////////////////////
-			BufferedReader inReader = new BufferedReader(new InputStreamReader(inputStream));
 			buferRecepcion = inReader.readLine();
-			//bytesLeidos = inputStream.read(buferRecepcion);
-			// bytesLeidos ... .read... buferRecepcion ; (Completar)
-			//////////////////////////////////////////////////////
-			//Seleccion del centro
+
+			while(buferRecepcion.toLowerCase().contains(error.toLowerCase()) ){
+				if(buferEnvio.toLowerCase().equals("q"))
+					System.exit(0);
+
+				System.out.println("Login incorrecto, vuelva a introducirlo:");
+				buferEnvio = terminalInput.nextLine();
+
+				outprinter.println(buferEnvio);
+				outprinter.flush();
 
 
-			// MOstremos la cadena de caracteres recibidos:
-			System.out.println("LOGIN. ");
+				buferRecepcion = inReader.readLine();
+
+			}
+
+			//Respuesta Autenticacion
 			System.out.print(buferRecepcion);
 			System.out.println("\n");
 
+			//Seleccion del centro
+			// Mostremos los datos del centro recibido:
+			buferRecepcion = inReader.readLine();
+			System.out.print(buferRecepcion);
+			System.out.println("\n");
 
-			//Selecion del centro
-			buferEnvio = "Facultad de Ciencias de la Educacion";
+			buferEnvio = terminalInput.nextLine();
 
 			outprinter.println(buferEnvio);
 			outprinter.flush();
 
 			buferRecepcion = inReader.readLine();
 
+			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
+				if(buferEnvio.toLowerCase().equals("q"))
+					System.exit(0);
 
+				System.out.println("Centro incorrecto, vuelva a introducir los datos:");
+				buferEnvio = terminalInput.nextLine();
+				outprinter.println(buferEnvio);
+				outprinter.flush();
+
+				buferRecepcion = inReader.readLine();
+
+			}
+
+			//Datos de la fecha
 			System.out.print(buferRecepcion);
 			System.out.println("\n");
 
 
 			//Seleccion de la fecha
-			buferEnvio = "10/11/2017";
+			buferEnvio = terminalInput.nextLine();
 
 			outprinter.println(buferEnvio);
 			outprinter.flush();
 
 			buferRecepcion = inReader.readLine();
 
-			System.out.println("\n");
+			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
+				if(buferEnvio.toLowerCase().equals("q"))
+					System.exit(0);
+
+				System.out.println("Fecha incorrecta, vuelva a introducir los datos:");
+				buferEnvio = terminalInput.nextLine();
+				outprinter.println(buferEnvio);
+				outprinter.flush();
+
+				buferRecepcion = inReader.readLine();
+
+			}
+
+			//Informacion de las horas disponibles
 			System.out.print(buferRecepcion);
 			System.out.println("\n");
 
 			//Seleccion de la hora
-			buferEnvio = "09:00";
+			buferEnvio = terminalInput.nextLine();
 
 			outprinter.println(buferEnvio);
 			outprinter.flush();
 
 			buferRecepcion = inReader.readLine();
 
-			System.out.println("\n");
-			System.out.print(buferRecepcion);
-			System.out.println("\n");
+			while(buferRecepcion.toLowerCase().contains(error.toLowerCase())){
+				if(buferEnvio.toLowerCase().equals("q"))
+					System.exit(0);
 
-			buferRecepcion = inReader.readLine();
+				System.out.println("Hora incorrecta, vuelva a introducir los datos:");
+				buferEnvio = terminalInput.nextLine();
+				outprinter.println(buferEnvio);
+				outprinter.flush();
+
+				buferRecepcion = inReader.readLine();
+
+			}
+
+			//Hora seleccionada
+			System.out.println("\n");
 			System.out.print(buferRecepcion);
-			System.out.print("\n");
+			System.out.println("\n");
 
 			//Todos los datos de la cita
-
 			buferRecepcion = inReader.readLine();
-
-			System.out.print("\n");
 			System.out.print(buferRecepcion);
 			System.out.print("\n");
+
 
 
 			// Una vez terminado el servicio, cerramos el socket (automáticamente se cierran

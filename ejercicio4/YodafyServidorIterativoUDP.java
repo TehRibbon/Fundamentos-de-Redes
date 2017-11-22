@@ -27,34 +27,33 @@ public class YodafyServidorIterativoUDP {
     String yodificado;
 
 
-	
-
-				try{
-					socketServidor = new DatagramSocket(port);
-				// Mientras ... siempre!
-				do {
-					direccion = InetAddress.getByName(host);
-	          paquete = new DatagramPacket(buferRecepcion, buferRecepcion.length, direccion, port);
-
-	          socketServidor.receive(paquete);
-
-	        	yodificado = new String(paquete.getData());
-	          // Yoda reinterpreta el mensaje:
-				    String respuesta = yodaDo(yodificado);
 
 
-				    // Convertimos el String de respuesta en una array de bytes:
-				    buferEnvio = respuesta.getBytes();
+		try{
+			socketServidor = new DatagramSocket(port);
+			// Mientras ... siempre!
+			do {
+        paquete = new DatagramPacket(buferRecepcion, buferRecepcion.length);
 
-	          direccion = paquete.getAddress();
-	          puerto = paquete.getPort();
+				//Recibe el mensaje
+				socketServidor.receive(paquete);
 
-	          // Se crea un nuevo paquete con el mensaje yodificado
-	          paqueteEnviado = new DatagramPacket(buferEnvio,buferEnvio.length,direccion, puerto);
+      	yodificado = new String(paquete.getData());
+        // Yoda reinterpreta el mensaje:
+		    String respuesta = yodaDo(yodificado);
 
-	          // Se envia el nuevo paquete con el mensaje yodificado incluido
 
-	          socketServidor.send(paqueteEnviado);
+		    // Convertimos el String de respuesta en una array de bytes:
+		    buferEnvio = respuesta.getBytes();
+
+        direccion = paquete.getAddress();
+        puerto = paquete.getPort();
+
+        // Se crea un nuevo paquete con el mensaje yodificado
+        paqueteEnviado = new DatagramPacket(buferEnvio,buferEnvio.length,direccion, puerto);
+
+        // Se envia el nuevo paquete con el mensaje yodificado incluido
+        socketServidor.send(paqueteEnviado);
 
 
 

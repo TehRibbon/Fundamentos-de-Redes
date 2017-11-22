@@ -19,7 +19,7 @@ public class YodafyClienteUDP {
 		byte []buferEnvio=new byte[256];
 		byte []buferRecepcion=new byte[256];
 
-                // Nombre del host donde se ejecuta el servidor:
+    // Nombre del host donde se ejecuta el servidor:
 		String host="localhost";
 
 		// Puerto en el que espera el servidor:
@@ -34,17 +34,18 @@ public class YodafyClienteUDP {
 		try {
 
 
-			socket = new DatagramSocket(port);
+			socket = new DatagramSocket();
 
-      //busca la direcio IP del servidor
-      direccion = InetAddress.getByName(host);
+			//Direccion del socket receptor
+			direccion = InetAddress.getByName(host);
 
       buferEnvio="Al monte del volcán debes ir sin demora".getBytes();
 
 
       //crea un datagrama con todos los datos---
       paquete = new DatagramPacket(buferEnvio, buferEnvio.length, direccion, port);
-      //---para enviarlo por el datagramsocket
+
+			//---para enviarlo por el datagramsocket
       socket.send(paquete);
 
       //Se recibira el mensaje yodificado
@@ -57,7 +58,7 @@ public class YodafyClienteUDP {
 
       yodificado = new String(paqueteRecibido.getData());
 
-			// MOstremos la cadena de caracteres recibidos:
+			// Mostremos la cadena de caracteres recibidos:
 			System.out.println("Recibido: ");
 			System.out.print(yodificado);
 			System.out.println("\n");
@@ -69,8 +70,18 @@ public class YodafyClienteUDP {
 			//////////////////////////////////////////////////////
 
 			// Excepciones:
-		} catch (IOException e) {
-			System.err.println("Error: Nombre de host no encontrado.");
+		  } catch (IOException e) {
+					System.err.println("Error: Nombre de host no encontrado.");
+		  	}/**
+				catch (UnknownHostException e) {
+					System.err.println("Desconocido:" + e.getMessage());
+
+				}
+
+				catch (SocketException e){
+					System.err.println("Socket:" + e.getMessage());
+
+				}**/
+
 		}
 	}
-}
